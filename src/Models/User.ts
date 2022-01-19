@@ -8,8 +8,14 @@ export class User extends BaseEntity {
     id: number;
 
     @Column()
-    email: string;
+    username: string;
 
-    @OneToMany(() => Command, command => command.id)
-    commands: Command[];
+    @Column()
+    password: string;
+
+    @Column()
+    role: string;
+
+    //@OneToMany(() => Command, command => command.id)
+    //commands: Command[];
 }

@@ -5,14 +5,20 @@ import { User } from "./Models/User";
 import { Command } from "./Models/Command";
 import { Product } from "./Models/Product";
 import { Ingredient } from "./Models/Ingredient";
-
+import UsersRouter from './Routes/user';
+import IngredientRouter from './Routes/ingredient';
 import { createConnection, getConnection } from "typeorm";
 import * as bodyParser from 'body-parser'
+import * as sha512 from 'js-sha512';
+import * as jwt from 'jsonwebtoken';
 
-
+var jwtExpress = require('express-jwt');
 const app = express();
 
 app.use(bodyParser.json())
+app.use(jwtExpress({ secret: 'ThisIsMySecretSentence1234', algorithms: ['HS256']}).unless({path: ['/auth']}));
+app.use(UsersRouter);
+app.use(IngredientRouter);
 
 createConnection({
     type: "mysql",
@@ -33,20 +39,20 @@ createConnection({
 })
 
 app.get('/', async (req, res) => {
-
-    // let user = new User();
-    // user.firstname = "John"
-    // user.lastname = "Doe"
-
-    // let result = await getConnection().manager.save(user)
-
-    // let result = await User.findOne({where: { firstname: "John" }})
-
-    //let result = await User.find()
-
-
     res.json({status: 200, data: "hello"})
-
 });
+
+app.post('/auth', async (req, res) => {
+
+    let user = await User.findOne({where: {  
+        username: req.body.username,
+        password: sha512.sha512(req.body.password)
+    }})
+  
+    let token = jwt.sign({ id: user.id }, 'ThisIsMySecretSentence1234');
+  
+    res.json({status: 200, data: token})
+  
+})
 
 app.listen(7000);

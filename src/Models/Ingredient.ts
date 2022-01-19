@@ -10,15 +10,14 @@ export class Ingredient extends BaseEntity {
     name: string;
 
     @Column()
-    type: string;
-
-    @Column({nullable: true})
-    tag: string;
-
-    @Column()
     price: number;
 
     @Column()
     quantity: number;
-    
+
+    @Column()
+    type: string;
+
+    @Column()
+    requested: boolean; 
 }
