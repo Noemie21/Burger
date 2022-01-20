@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, OneToMany  } from "typeorm";
+import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
 import { Ingredient } from './Ingredient';
 
 @Entity()
@@ -10,9 +10,10 @@ export class Product extends BaseEntity {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ type: "float" })
     price: number;
 
-    @OneToMany(() => Ingredient, ingredient => ingredient.id)
+    @ManyToMany(() => Ingredient, ingredient => ingredient.id)
+    @JoinTable()
     ingredients: Ingredient[];
 }

@@ -7,6 +7,7 @@ import { Product } from "./Models/Product";
 import { Ingredient } from "./Models/Ingredient";
 import UsersRouter from './Routes/user';
 import IngredientRouter from './Routes/ingredient';
+import ProductRouter from './Routes/product';
 import { createConnection, getConnection } from "typeorm";
 import * as bodyParser from 'body-parser'
 import * as sha512 from 'js-sha512';
@@ -19,6 +20,7 @@ app.use(bodyParser.json())
 app.use(jwtExpress({ secret: 'ThisIsMySecretSentence1234', algorithms: ['HS256']}).unless({path: ['/auth']}));
 app.use(UsersRouter);
 app.use(IngredientRouter);
+app.use(ProductRouter);
 
 createConnection({
     type: "mysql",

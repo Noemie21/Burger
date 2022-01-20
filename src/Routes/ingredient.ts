@@ -28,62 +28,39 @@ router.get('/ingredients', checkAdmin,  async (req, res) => {
 });
 
 router.get('/ingredients/:id', checkAdmin, async (req, res) => {
-    let user = await User.findOne({where: { 
-        // @ts-ignore
-        id: req.user.id 
+
+    let ingredient = await Ingredient.findOne({where: {
+        id: req.params.id
     }})
-    if (user.role != 'admin') {
-        res.json({status : 403, data: "Vous n'avez pas l'autorisation"})
-    }
-    else {
-        let ingredient = await Ingredient.findOne({where: {
-            id: req.params.id
-        }})
-        res.json({status : 200, data: {ingredient}})
-    }
+    res.json({status : 200, data: {ingredient}})
 });
 
 router.put('/ingredients/:id', checkAdmin, async (req, res) => {
-    let user = await User.findOne({where: { 
-        // @ts-ignore
-        id: req.user.id
+
+    let ingredient = await Ingredient.findOne({where: {
+        id: req.params.id
     }})
-    if (user.role != 'admin') {
-        res.json({status : 403, data: "Vous n'avez pas l'autorisation"})
-    }
-    else {
-        let ingredient = await Ingredient.findOne({where: {
-            id: req.params.id
-        }})
-        let updatedIngredient = await Ingredient.update({
-            id: ingredient.id,
-          }, {
-            price: req.body.price,
-            quantity: req.body.quantity,
-            type: req.body.type,
-            requested: req.body.requested
-        });
-        res.json({status : 200, data: {updatedIngredient}})
-    }
+    ingredient.name = req.body.name
+    ingredient.price = req.body.price
+    ingredient.quantity = req.body.quantity
+    ingredient.type = req.body.type
+    ingredient.requested = req.body.requested
+
+    await ingredient.save()
+    res.json({status : 200, data: {ingredient}})
+
 });
 
 router.delete('/ingredients/:id', checkAdmin, async (req, res) => {
-    let user = await User.findOne({where: { 
-        // @ts-ignore
-        id: req.user.id 
+
+    let ingredient = await Ingredient.findOne({where: {
+        id: req.params.id
     }})
-    if (user.role != 'admin') {
-        res.json({status : 403, data: "Vous n'avez pas l'autorisation"})
-    }
-    else {
-        let ingredient = await Ingredient.findOne({where: {
-            id: req.params.id
-        }})
-        await Ingredient.delete({
-            id: ingredient.id,
-          });
-        res.json({status : 200, data: "Ingrédient supprimé !"})
-    }
+    await Ingredient.delete({
+        id: ingredient.id,
+        });
+    res.json({status : 200, data: "Ingrédient supprimé !"})
+
 });
 
 export default router
