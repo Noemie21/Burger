@@ -1,11 +1,11 @@
 import express from 'express';
 import { User } from "../Models/User";
 import { Ingredient} from "../Models/Ingredient"
-import { URLSearchParams } from 'url';
+import { checkAdmin } from "../Middlewares/checkRole";
 
 let router = express.Router()
 
-router.post('/ingredients', async (req, res) => {
+router.post('/ingredients', checkAdmin, async (req, res) => {
     let user = await User.findOne({where: { 
         // @ts-ignore
         id: req.user.id 
@@ -20,21 +20,14 @@ router.post('/ingredients', async (req, res) => {
     }
 });
 
-router.get('/ingredients', async (req, res) => {
-    let user = await User.findOne({where: { 
-        // @ts-ignore
-        id: req.user.id 
-    }})
-    if (user.role != 'admin') {
-        res.json({status : 403, data: "Vous n'avez pas l'autorisation"})
-    }
-    else {
-        let ingredient = await Ingredient.find()
-        res.json({status : 200, data: {ingredient}})
-    }
+router.get('/ingredients', checkAdmin,  async (req, res) => {
+
+    let ingredient = await Ingredient.find()
+    res.json({status : 200, data: {ingredient}})
+
 });
 
-router.get('/ingredients/:id', async (req, res) => {
+router.get('/ingredients/:id', checkAdmin, async (req, res) => {
     let user = await User.findOne({where: { 
         // @ts-ignore
         id: req.user.id 
@@ -50,7 +43,7 @@ router.get('/ingredients/:id', async (req, res) => {
     }
 });
 
-router.put('/ingredients/:id', async (req, res) => {
+router.put('/ingredients/:id', checkAdmin, async (req, res) => {
     let user = await User.findOne({where: { 
         // @ts-ignore
         id: req.user.id
@@ -74,22 +67,7 @@ router.put('/ingredients/:id', async (req, res) => {
     }
 });
 
-router.post('/ingredients', async (req, res) => {
-    let user = await User.findOne({where: { 
-        // @ts-ignore
-        id: req.user.id 
-    }})
-    if (user.role != 'admin') {
-        res.json({status : 403, data: "Vous n'avez pas l'autorisation"})
-    }
-    else {
-    let ingredient = await Ingredient.create(req.body);
-    let result = await Ingredient.save(ingredient);
-    return res.send(result);
-    }
-});
-
-router.delete('/ingredients/:id', async (req, res) => {
+router.delete('/ingredients/:id', checkAdmin, async (req, res) => {
     let user = await User.findOne({where: { 
         // @ts-ignore
         id: req.user.id 
@@ -101,7 +79,7 @@ router.delete('/ingredients/:id', async (req, res) => {
         let ingredient = await Ingredient.findOne({where: {
             id: req.params.id
         }})
-        let updatedIngredient = await Ingredient.delete({
+        await Ingredient.delete({
             id: ingredient.id,
           });
         res.json({status : 200, data: "Ingrédient supprimé !"})
