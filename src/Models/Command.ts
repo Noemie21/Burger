@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, OneToMany  } from "typeorm";
+import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable  } from "typeorm";
 import { Product } from './Product';
 
 @Entity()
@@ -13,6 +13,10 @@ export class Command extends BaseEntity {
     @Column()
     createdAt: Date;
 
-    @OneToMany(() => Product, product => product.id)
+    @Column({ nullable: true })
+    finishedAt: Date;
+
+    @ManyToMany(() => Product, product => product.id)
+    @JoinTable()
     products: Product[];
 }
