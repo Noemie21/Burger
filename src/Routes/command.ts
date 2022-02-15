@@ -3,6 +3,7 @@ import { Command } from "../Models/Command";
 import { checkAdmin, checkAdminKitchen, checkCustomer, checkKitchen } from "../Middlewares/checkRole";
 import { Product } from '../Models/Product';
 import { In } from 'typeorm'
+import { Ingredient} from "../Models/Ingredient"
 
 let router = express.Router()
 
@@ -18,8 +19,16 @@ router.post('/commands', checkCustomer, async (req, res) => {
     command.status = "non-traitée"
     command.createdAt = new Date();
 
-    let products = await Product.find({where: { id: In(req.body.products) }})
+    let products = await Product.find({relations: ["ingredients"], where: { id: In(req.body.products) }})
     command.products = products
+
+    const newquantityingredient = command.products.map( product => {
+        product.ingredients.map( ingredient => {
+            ingredient.quantity = ingredient.quantity - 1
+            ingredient.save()
+        })
+        }
+    )
 
     let result = await Command.save(command);
     return res.send(result);
