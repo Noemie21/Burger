@@ -1,7 +1,12 @@
-let baseUrl = 'http://127.0.0.1:7000/'
+let baseUrl = 'http://127.0.0.1:7000'
 
 export const getToken = () => {
     return localStorage.getItem('token')
+}
+
+export const logout = () => {
+    localStorage.removeItem('currentUser');
+    return 'yes'
 }
 
 export const login = async ({ username, password }) => {

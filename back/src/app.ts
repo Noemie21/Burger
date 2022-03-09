@@ -1,6 +1,7 @@
 import "reflect-metadata";
 
 import express from 'express';
+import cors from 'cors';
 import { User } from "./Models/User";
 import { Command } from "./Models/Command";
 import { Product } from "./Models/Product";
@@ -18,6 +19,7 @@ import * as jwt from 'jsonwebtoken';
 var jwtExpress = require('express-jwt');
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json())
 app.use(jwtExpress({ secret: 'ThisIsMySecretSentence1234', algorithms: ['HS256']}).unless({path: ['/auth']}));
 app.use(UsersRouter);
@@ -49,12 +51,11 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/auth', async (req, res) => {
-
     let user = await User.findOne({where: {  
         username: req.body.username,
         password: sha512.sha512(req.body.password)
     }})
-  
+    console.log(user)
     let token = jwt.sign({ id: user.id }, 'ThisIsMySecretSentence1234');
   
     res.json({status: 200, data: token})
@@ -62,3 +63,6 @@ app.post('/auth', async (req, res) => {
 })
 
 app.listen(7000);
+
+//tsc
+//nodemon src/app.ts

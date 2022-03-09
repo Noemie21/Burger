@@ -10,7 +10,7 @@ router.get('/users/me', async (req, res) => {
     }})
     let name = user.username
 
-    res.json({status : 200, data: {name}})
+    res.json({status : 200, data: user})
 })
 
 export default router
