@@ -6,16 +6,17 @@ import LoginPage from './Pages/LoginPage'
 import UserPage from './Pages/UserPage'
 import KitchenPage from './Pages/KitchenPage'
 import AdminPage from './Pages/AdminPage'
-
+import HomePage from './Pages/HomePage'
 
 
 function App() {
   return (
+    <BrowserRouter>
     <StoreProvider>
 
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Navbar.Brand href="/home">Home</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -31,8 +32,9 @@ function App() {
         </Container>
       </Navbar>
       
-      <BrowserRouter>
+      
           <Routes>
+            <Route path="/home" element={<HomePage/>} > </Route>
             <Route path="/login" element={<LoginPage/>} > </Route>
             <Route path="/user" element={<UserPage/>} > </Route>
             <Route path="/kitchen" element={<KitchenPage/>} > </Route>
@@ -41,9 +43,10 @@ function App() {
             <Route path="/articles/:id" element={<SingleArticlePage/>} > </Route>
             <Route path="/articles/categories" element={<CategoriesPage/>} > </Route> */}
           </Routes>
-      </BrowserRouter>
+      
 
     </StoreProvider>
+    </BrowserRouter>
   );
 }
 
