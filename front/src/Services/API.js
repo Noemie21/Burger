@@ -144,3 +144,70 @@ export const getProducts = async () => {
     return json.data
 
 }
+export const getProduct = async (id) => {
+
+    let response = await fetch(`${baseUrl}/products/${id}`, {
+        method: 'GET',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    let json = await response.json()
+
+    return json.data
+
+}
+export const newProduct = async ({ name, price, ingredients}) => {
+
+    let response = await fetch(`${baseUrl}/products`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        },
+        body: JSON.stringify({
+            name: name,
+            price : price, 
+            ingredients : ingredients
+        })
+    })
+
+    let json = await response.json()
+
+    return json
+}
+export const editProduct = async (id, { name, price, ingredients}) => {
+
+    let response = await fetch(`${baseUrl}/products/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        },
+        body: JSON.stringify({
+            name: name,
+            price : price, 
+            ingredients : ingredients
+        })
+    })
+
+    let json = await response.json()
+
+    return json
+}
+export const removeProduct = async (id ) => {
+
+    let response = await fetch(`${baseUrl}/products/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    let json = await response.json()
+
+    return json
+}

@@ -10,6 +10,12 @@ import HomePage from './Pages/HomePage'
 import IngredientPage from './Pages/IngredientPage'
 import NewIngredientPage from './Pages/Admin/NewIngredientPage'
 import EditIngredientPage from './Pages/Admin/EditIngredientPage'
+import ProductPage from './Pages/ProductPage'
+import NewProductPage from './Pages/Admin/NewProductPage'
+import EditProductPage from './Pages/Admin/EditProductPage'
+
+
+
 
 
 function App() {
@@ -45,6 +51,10 @@ function App() {
             <Route path="/ingredients/:id" element={<IngredientPage/>} > </Route>
             <Route path="/ingredients/new" element={<NewIngredientPage/>} > </Route>
             <Route path="/ingredients/:id/edit" element={<EditIngredientPage/>} > </Route>
+            <Route path="/products/:id" element={<ProductPage/>} > </Route>
+            <Route path="/products/new" element={<NewProductPage/>} > </Route>
+            <Route path="/products/:id/edit" element={<EditProductPage/>} > </Route>
+
 
             {/* <Route path="/articles" element={<ArticlesPage/>} > </Route>
             <Route path="/articles/:id" element={<SingleArticlePage/>} > </Route>
