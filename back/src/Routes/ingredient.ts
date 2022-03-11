@@ -14,6 +14,7 @@ router.post('/ingredients', checkAdmin, async (req, res) => {
         res.json({status : 403, data: "Vous n'avez pas l'autorisation"})
     }
     else {
+        console.log(req.body)
     let ingredient = await Ingredient.create(req.body);
     let result = await Ingredient.save(ingredient);
     return res.send(result);

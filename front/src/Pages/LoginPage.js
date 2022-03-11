@@ -25,7 +25,7 @@ export default function LoginPage() {
 
             getUser().then((data) => {
                 if (data.role === 'admin') {
-                    navigate('/user')
+                    navigate('/admin')
                 }
                 else if (data.role === 'kitchen') {
                     navigate('/kitchen')
@@ -34,7 +34,6 @@ export default function LoginPage() {
                     navigate('/user')
                 }
             })
-            console.log('coucou')
         })}>
             <br/>
             <br/>

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StoreContext } from '../Providers/StoreProvider';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserPage() {
+export default function HomePage() {
 
     let navigate = useNavigate()
 
