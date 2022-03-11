@@ -7,6 +7,9 @@ import UserPage from './Pages/UserPage'
 import KitchenPage from './Pages/KitchenPage'
 import AdminPage from './Pages/AdminPage'
 import HomePage from './Pages/HomePage'
+import IngredientPage from './Pages/IngredientPage'
+import NewIngredientPage from './Pages/Admin/NewIngredientPage'
+import EditIngredientPage from './Pages/Admin/EditIngredientPage'
 
 
 function App() {
@@ -39,6 +42,10 @@ function App() {
             <Route path="/user" element={<UserPage/>} > </Route>
             <Route path="/kitchen" element={<KitchenPage/>} > </Route>
             <Route path="/admin" element={<AdminPage/>} > </Route>
+            <Route path="/ingredients/:id" element={<IngredientPage/>} > </Route>
+            <Route path="/ingredients/new" element={<NewIngredientPage/>} > </Route>
+            <Route path="/ingredients/:id/edit" element={<EditIngredientPage/>} > </Route>
+
             {/* <Route path="/articles" element={<ArticlesPage/>} > </Route>
             <Route path="/articles/:id" element={<SingleArticlePage/>} > </Route>
             <Route path="/articles/categories" element={<CategoriesPage/>} > </Route> */}
