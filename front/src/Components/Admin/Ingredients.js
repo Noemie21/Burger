@@ -43,7 +43,7 @@ export default function Ingredients() {
                             <td>{type}</td>
                             <td>{price} €</td>
                             <td><Button href={`/ingredients/${id}/edit`}>Editer</Button></td>
-                            <td><Button onClick={async ()=> {
+                            <td><Button variant="danger" onClick={async ()=> {
                                 await removeIngredient(id)
                                 refresh()
                             }}>Delete</Button></td>
