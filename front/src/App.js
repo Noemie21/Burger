@@ -13,6 +13,7 @@ import EditIngredientPage from './Pages/Admin/EditIngredientPage'
 import ProductPage from './Pages/ProductPage'
 import NewProductPage from './Pages/Admin/NewProductPage'
 import EditProductPage from './Pages/Admin/EditProductPage'
+import { CartProvider } from './Providers/CartProvider';
 
 
 
@@ -22,6 +23,7 @@ function App() {
   return (
     <BrowserRouter>
     <StoreProvider>
+    <CartProvider>
 
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
@@ -61,7 +63,8 @@ function App() {
             <Route path="/articles/categories" element={<CategoriesPage/>} > </Route> */}
           </Routes>
       
-
+    
+    </CartProvider>
     </StoreProvider>
     </BrowserRouter>
   );

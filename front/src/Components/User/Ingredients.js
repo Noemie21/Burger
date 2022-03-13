@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { StoreContext } from '../../Providers/StoreProvider'
+import { CartContext } from '../../Providers/CartProvider';
 import { useNavigate, Link } from 'react-router-dom';
 import { Table, Button, Container, Row, Col, ListGroup, Card } from 'react-bootstrap';
 
@@ -8,7 +9,10 @@ export default function Ingredients() {
 
     let navigate = useNavigate()
     const { ingredients } = useContext(StoreContext)
-    const { refresh } = useContext(StoreContext)
+    const { cart } = useContext(CartContext)
+    const { setCart } = useContext(CartContext)
+    const { total } = useContext(CartContext)
+    const { setTotal } = useContext(CartContext)
 
     return (
     <div>
@@ -31,7 +35,16 @@ export default function Ingredients() {
                             <Card.Title>{name}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">{price} €</Card.Subtitle>
                             <Card.Text> {type}</Card.Text>
-                            <Button variant="primary">Ajouter au panier</Button>
+                            <Button variant="primary" action onClick={()=> {
+                              setCart(
+                                  [...cart, 
+                                  {id : id, 
+                                  name: name,
+                                  price: price}]);
+                              setTotal(total + price)   
+                            }    
+                            }>Ajouter au panier
+                            </Button>
                         </Card.Body>
                     </Card>
                     <br />
