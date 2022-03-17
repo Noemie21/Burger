@@ -13,7 +13,7 @@ export default function Ingredients() {
     const { setCart } = useContext(CartContext)
     const { total } = useContext(CartContext)
     const { setTotal } = useContext(CartContext)
-
+    console.log(cart)
     return (
     <div>
         <br/>
@@ -40,7 +40,9 @@ export default function Ingredients() {
                                   [...cart, 
                                   {id : id, 
                                   name: name,
-                                  price: price}]);
+                                  price: price,
+                                  type: type
+                                }]);
                               setTotal(total + price)
                             }
                             }>Ajouter au panier

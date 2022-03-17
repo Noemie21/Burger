@@ -43,7 +43,8 @@ export default function Products() {
                             <Button variant="primary" action onClick={()=> {
                             setCart(
                                 [...cart, 
-                                {id : id, 
+                                {type: "product",
+                                id : id, 
                                 name: name,
                                 price: price,
                                 ingredients: ingredients}]);

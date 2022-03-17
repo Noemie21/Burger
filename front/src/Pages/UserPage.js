@@ -14,7 +14,9 @@ export default function UserPage() {
     let navigate = useNavigate()
     let [menu, setMenu] = useState("products")
     const { cart } = useContext(CartContext)
+    const { setCart } = useContext(CartContext)
     const { total } = useContext(CartContext)
+    const { setTotal } = useContext(CartContext)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,13 +36,26 @@ export default function UserPage() {
                         <Offcanvas.Title>Panier</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                        {cart.map(({ id, name, price }) => {
-                            return <ul>
-                                <li>{name}</li>
-                                <li>{price} €</li>
-                            </ul>
-                        })}
                         <Container>
+                        {cart.map(({ id, name, price }) => {
+                            return <Row>
+                                <Col sm={8}>{name}<br/>{price} €</Col>
+                                <Col sm={4}>
+                                    <Button 
+                                        variant="outline-danger" 
+                                        size="sm"
+                                        onClick={() => {
+                                            setCart((cart) => cart.filter((_, i) => i !== cart.length - 1));
+                                            setTotal(total - price)
+                                          }
+                                        }
+                                    >Retirer</Button>
+                                </Col>
+                            </Row>
+    
+                        })}
+                        <br/>
+                        <br/>
                             <Row>
                                 <Col sm={6}><h3>Total : {total} €</h3></Col>
                                 <Col sm={2}></Col>
