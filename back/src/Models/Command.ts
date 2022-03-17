@@ -1,5 +1,6 @@
 import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable  } from "typeorm";
 import { Product } from './Product';
+import { Ingredient } from './Ingredient';
 
 @Entity()
 export class Command extends BaseEntity {
@@ -19,4 +20,8 @@ export class Command extends BaseEntity {
     @ManyToMany(() => Product, product => product.id)
     @JoinTable()
     products: Product[];
+
+    @ManyToMany(() => Ingredient, ingredient => ingredient.id)
+    @JoinTable()
+    ingredients: Ingredient[];
 }

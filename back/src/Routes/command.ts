@@ -22,13 +22,20 @@ router.post('/commands', checkCustomer, async (req, res) => {
     let products = await Product.find({relations: ["ingredients"], where: { id: In(req.body.products) }})
     command.products = products
 
-    const newquantityingredient = command.products.map( product => {
+    let ingredients =  await Ingredient.find({where: { id: In(req.body.ingredients) }})
+    command.ingredients = ingredients
+
+    command.products.map( product => {
         product.ingredients.map( ingredient => {
             ingredient.quantity = ingredient.quantity - 1
             ingredient.save()
         })
         }
     )
+    command.ingredients.map ( ingredient => {
+        ingredient.quantity = ingredient.quantity - 1
+        ingredient.save()
+    })
 
     let result = await Command.save(command);
     return res.send(result);
