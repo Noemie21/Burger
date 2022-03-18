@@ -10,12 +10,9 @@ export default function Products() {
     let navigate = useNavigate()
     const { products } = useContext(StoreContext)
     const { refresh } = useContext(StoreContext)
-    const { cart } = useContext(CartContext)
-    const { setCart } = useContext(CartContext)
-    const { total } = useContext(CartContext)
-    const { setTotal } = useContext(CartContext)
-    //let [cart, setCart] = useState([])
-    console.log(cart)
+    const { cart, setCart } = useContext(CartContext)
+    const { total, setTotal } = useContext(CartContext)
+    const { pro, setPro } = useContext(CartContext)
 
     return (
     <div>
@@ -48,7 +45,12 @@ export default function Products() {
                                 name: name,
                                 price: price,
                                 ingredients: ingredients}]);
-                            setTotal(total + price)
+                            setTotal(total + price);
+                            setPro(
+                                [...pro,
+                                id
+                                ]
+                            )
                             }
                             }>Ajouter au panier</Button>
                         </Card.Body>

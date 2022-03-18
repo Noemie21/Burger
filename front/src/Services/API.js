@@ -33,7 +33,7 @@ export const getUser = async () => {
     let response = await fetch(`${baseUrl}/users/me`, {
         method: 'GET',
         headers: {
-            //'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${getToken()}`
         }
     })
@@ -63,7 +63,7 @@ export const getIngredient = async (id) => {
     let response = await fetch(`${baseUrl}/ingredients/${id}`, {
         method: 'GET',
         headers: {
-            //'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${getToken()}`
         }
     })
@@ -134,7 +134,7 @@ export const getProducts = async () => {
     let response = await fetch(`${baseUrl}/products`, {
         method: 'GET',
         headers: {
-            //'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${getToken()}`
         }
     })
@@ -149,7 +149,7 @@ export const getProduct = async (id) => {
     let response = await fetch(`${baseUrl}/products/${id}`, {
         method: 'GET',
         headers: {
-            //'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${getToken()}`
         }
     })
@@ -210,4 +210,37 @@ export const removeProduct = async (id ) => {
     let json = await response.json()
 
     return json
+}
+export const newCommand = async ({ products, ingredients}) => {
+
+    let response = await fetch(`${baseUrl}/commands`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        },
+        body: JSON.stringify({
+            products : products,
+            ingredients : ingredients
+        })
+    })
+
+    let json = await response.json()
+
+    return json
+}
+export const getCommands = async () => {
+
+    let response = await fetch(`${baseUrl}/commands`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    let json = await response.json()
+
+    return json.data
+
 }

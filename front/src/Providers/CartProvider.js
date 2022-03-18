@@ -6,6 +6,8 @@ export const CartProvider = (props) => {
 
     let [cart, setCart] = useState([])
     let [total, setTotal] = useState(0)
+    let [pro, setPro] = useState([])
+    let [ingr, setIngr] = useState([])
     //localStorage.setItem("cart", [])
 
     // useEffect(() => {
@@ -13,7 +15,7 @@ export const CartProvider = (props) => {
     // }, [props]);
 
     return (
-        <CartContext.Provider value={{cart, setCart, total, setTotal}} >
+        <CartContext.Provider value={{cart, setCart, total, setTotal, pro, setPro, ingr, setIngr}} >
             {props.children}
         </CartContext.Provider>
     )

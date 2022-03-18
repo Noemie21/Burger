@@ -5,26 +5,31 @@ import { Row, Col, ListGroup, Offcanvas, Container, Button} from 'react-bootstra
 import Products from '../Components/User/Products'
 import Ingredients from '../Components/User/Ingredients'
 import Drinks from '../Components/User/Drinks'
-import { AiOutlineShoppingCart } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
+import { getUser, newCommand } from '../Services/API';
+
 
 
 export default function UserPage() {
 
     let navigate = useNavigate()
     let [menu, setMenu] = useState("products")
-    const { cart } = useContext(CartContext)
-    const { setCart } = useContext(CartContext)
-    const { total } = useContext(CartContext)
-    const { setTotal } = useContext(CartContext)
+    const { cart, setCart } = useContext(CartContext)
+    const { total, setTotal } = useContext(CartContext)
+    const { pro, setPro } = useContext(CartContext)
+    const { ingr, setIngr } = useContext(CartContext)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    
+    console.log(pro)
+    console.log(ingr)
     // useEffect(() => {
-    //     console.log(cart);
+    //     console.log(cart)
     // }, [cart]);
-
+    // getUser().then((data) => {
+    //     if (data.role === 'user') {
+            
     return(
         <div >
             <Row>
@@ -60,8 +65,15 @@ export default function UserPage() {
                                 <Col sm={6}><h3>Total : {total} €</h3></Col>
                                 <Col sm={2}></Col>
                                 <Col sm={4}>
-                                    <Button href="ingredients/new">Commander</Button>
+                                    <Button onClick={async (pro, ingr)=> {
+                                        await newCommand(pro, ingr);
+                                        console.log("commandé !")
+                                    }}>Commander</Button>
                                 </Col>
+                                {/* <td><Button variant="danger" onClick={async ()=> {
+                                await removeProduct(id)
+                                refresh()
+                            }}>Delete</Button></td> */}
                             </Row>
                         </Container>
                         
@@ -85,5 +97,7 @@ export default function UserPage() {
                 </Col>
             </Row>
         </div>
-    ) 
+    )
+// }
+// })
 }

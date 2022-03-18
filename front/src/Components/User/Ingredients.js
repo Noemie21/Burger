@@ -9,11 +9,10 @@ export default function Ingredients() {
 
     let navigate = useNavigate()
     const { ingredients } = useContext(StoreContext)
-    const { cart } = useContext(CartContext)
-    const { setCart } = useContext(CartContext)
-    const { total } = useContext(CartContext)
-    const { setTotal } = useContext(CartContext)
-    console.log(cart)
+    const { cart, setCart } = useContext(CartContext)
+    const { total, setTotal } = useContext(CartContext)
+    const { ingr, setIngr } = useContext(CartContext)
+
     return (
     <div>
         <br/>
@@ -43,7 +42,11 @@ export default function Ingredients() {
                                   price: price,
                                   type: type
                                 }]);
-                              setTotal(total + price)   
+                              setTotal(total + price);
+                              setIngr(
+                                [...ingr,
+                                  id
+                              ])   
                             }    
                             }>Ajouter au panier
                             </Button>

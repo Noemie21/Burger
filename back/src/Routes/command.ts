@@ -42,7 +42,6 @@ router.post('/commands', checkCustomer, async (req, res) => {
 
 });
 
-
 router.get('/commands', checkAdminKitchen, async (req, res) => {
 
     let command = await Command.find({ 
